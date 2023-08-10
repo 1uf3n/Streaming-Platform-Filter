@@ -4,7 +4,7 @@ library(dplyr)
 library(shiny)
 library(readr)
 library(tidyverse)
-mosp<-read.csv("C:/Users/admin/Documents/Info201Code/exploratory-analysis-p02-Doryi/MoviesOnStreamingPlatforms.csv")
+mosp<-read.csv("MoviesOnStreamingPlatforms.csv")
 server <- function(input, output) {
   
   mosp <- mosp %>% separate(Rotten.Tomatoes,c("Rating","Total"),sep = "/")
