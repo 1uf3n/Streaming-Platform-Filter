@@ -33,4 +33,10 @@ server <- function(input, output) {
          xlab = "Rotten Tomatoes Rating",
          main = paste("Histogram of Rotten Tomatoes Rating in", input$platform))
   })
+  output$graphDescription <- renderText({
+    "This is a histogram plot:\n
+    The set of graphs show distribution of Rotten Tomatoes rating for each platform.
+    It tries to understand whether there is any difference in distribution of ratings between platforms.
+    Also it tries to know whether the distribution is robust to changes in the number of bins"
+  })
 }

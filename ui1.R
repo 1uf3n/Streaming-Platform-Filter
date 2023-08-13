@@ -13,7 +13,8 @@ ui <- fluidPage(
                   value = 20)
     ),
     mainPanel(
-      plotOutput(outputId = "distPlot")
+      plotOutput(outputId = "distPlot"),
+      verbatimTextOutput("graphDescription")
     )
   )
 )
