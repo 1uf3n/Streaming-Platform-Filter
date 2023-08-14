@@ -3,6 +3,7 @@ library(ggplot2)
 library(dplyr)
 library(plotly)
 library(tidyverse)
+library(tidyr)
 
 # Calculate the data and filter the dataframe
 df <- read.csv("MoviesOnStreamingPlatforms.csv")

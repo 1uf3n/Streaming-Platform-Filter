@@ -1,3 +1,6 @@
+library(shiny)
+library(plotly)
+
 ui <- navbarPage("Analyzing Various Streaming Platforms",
                  tabPanel("Introduction"),
                  tabPanel("Diversity of Streaming Platforms",
@@ -51,17 +54,16 @@ ui <- navbarPage("Analyzing Various Streaming Platforms",
                               )
                             ),
                             mainPanel(
-                              plotlyOutput(outputId = "pie_chart"),
-                              plotlyOutput(outputId = "pie_chart"),
-                              br(),
-                              p("Streaming platforms often differentiate themselves by targeting unique content to specific demographics. This is important for users to decide which platform is best suited for their age group, and also for platforms as it can show the advantages they hold and thus change their business strategy."),
-                              br(),
-                              p("For answering the question 'What is the percentage of different age ratings for each platform?', the best chart for visualization is a pie chart. The pie chart is designed to show the parts of a whole, helping us understand how movie age ratings are distributed across a platform's entire movie collection. By looking at the pie chart, we can immediately determine which age-rated movies are most and least common on each platform. The pie chart's clear visualization of movie age ratings allows users to discern which platforms align with their viewing preferences, and stakeholders can extract strategic insights about content positioning and targeting. A balanced distribution of age ratings indicates a platform's intention to cater to a wide audience. Conversely, a platform dominated by a particular age category might be targeting a specific demographic. From a business perspective, understanding these distributions can inform licensing decisions, content strategies, and marketing approaches.")
+                              plotlyOutput(outputId = "pie_chart")
                             )
-                          )
+                          ),
+                          br(),
+                          p("Streaming platforms often differentiate themselves by targeting unique content to specific demographics. This is important for users to decide which platform is best suited for their age group, and also for platforms as it can show the advantages they hold and thus change their business strategy."),
+                          br(),
+                          p("For answering the question 'What is the percentage of different age ratings for each platform?', the best chart for visualization is a pie chart. The pie chart is designed to show the parts of a whole, helping us understand how movie age ratings are distributed across a platform's entire movie collection. By looking at the pie chart, we can immediately determine which age-rated movies are most and least common on each platform. The pie chart's clear visualization of movie age ratings allows users to discern which platforms align with their viewing preferences, and stakeholders can extract strategic insights about content positioning and targeting. A balanced distribution of age ratings indicates a platform's intention to cater to a wide audience. Conversely, a platform dominated by a particular age category might be targeting a specific demographic. From a business perspective, understanding these distributions can inform licensing decisions, content strategies, and marketing approaches.")
                  ),
                  tabPanel("Distribution of Rating",
-                          h1("Movie Age Rating"),
+                          h1("Distribution of Rating"),
                           p(HTML("This graph was created to answer: <strong>How do the average movie ratings differ across the various platforms?</strong>")),
                           p("This is accomplished by creating a histogram to visualize the distribution of movie age ratings by platform."),
                           
