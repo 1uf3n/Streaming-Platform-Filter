@@ -4,9 +4,10 @@ library(dplyr)
 library(plotly)
 library(tidyverse)
 
-setwd("/Users/apple/Desktop")
+# Calculate the data and filter the dataframe
 df <- read.csv("MoviesOnStreamingPlatforms.csv")
 
+# For age rating
 ages_rating_df <- df %>%
   rename("Disney" = Disney.) %>%
   rename("Prime" = Prime.Video) %>%
@@ -35,6 +36,7 @@ age_legend_colors <- c(
   "Not rated" = "grey"
 )
 
+# For Rotten tomatoes rating
 mosp <- df %>% separate(Rotten.Tomatoes,c("Rating","Total"),sep = "/")
 mosp$Rating <- as.numeric(mosp$Rating)
 mosp <- mosp %>% 
@@ -74,6 +76,7 @@ server <- function(input, output) {
              xaxis = list(title = "Streaming Platforms"),
              yaxis = list(title = "Total Movies"))
   })
+  
   output$MovieCountOutput <- renderText({
     selected_year <- input$SelectedYear
     filtered_data <- df %>%
@@ -83,6 +86,7 @@ server <- function(input, output) {
     
     paste("Total movies in", selected_year, ":", total_movies)
   })
+  
   output$pie_chart <- renderPlotly({
     filtered_df <- aggregate_Age_rating[aggregate_Age_rating$Platform == input$platform_input, ] %>%
       arrange(Age)
@@ -95,6 +99,7 @@ server <- function(input, output) {
             marker = list(colors = age_legend_colors[filtered_df$Age])) %>%
       layout(title = paste(input$platform_input, "Movie Age Distribution"))
   })
+  
   output$distPlot <- renderPlot({
     platform_data <- switch(input$platform,
                             "Disney" = subset(mosp_rating_dis, Platform == "Disney"),
