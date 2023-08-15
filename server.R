@@ -6,7 +6,7 @@ library(tidyverse)
 library(tidyr)
 
 # Calculate the data and filter the dataframe
-df <- read.csv("MoviesOnStreamingPlatforms.csv")
+df <- read.csv("https://raw.githubusercontent.com/info201a-su23/exploratory-analysis-p02-Doryi/main/MoviesOnStreamingPlatforms.csv")
 
 # For age rating
 ages_rating_df <- df %>%
@@ -50,6 +50,8 @@ mosp_rating_dis <- mosp %>%
     
 
 server <- function(input, output) {
+  df <- read.csv("https://raw.githubusercontent.com/info201a-su23/exploratory-analysis-p02-Doryi/main/MoviesOnStreamingPlatforms.csv")
+
   output$interactive_chart <- renderPlotly({
     filtered_data <- df %>%
       filter(Year == input$Year)
@@ -101,7 +103,7 @@ server <- function(input, output) {
       layout(title = paste(input$platform_input, "Movie Age Distribution"))
   })
   
-  output$distPlot <- renderPlot({
+  output$distPlot <- renderPlotly({
     platform_data <- switch(input$platform,
                             "Disney" = subset(mosp_rating_dis, Platform == "Disney"),
                             "Netflix" = subset(mosp_rating_dis, Platform == "Netflix"),
@@ -113,9 +115,19 @@ server <- function(input, output) {
     x <- na.omit(x)
     bins <- seq(min(x), max(x), length.out = input$bins + 1)
     
-    hist(x, breaks = bins, col = "#75AADB", border = "black",
-         xlab = "Rotten Tomatoes Rating",
-         main = paste("Histogram of Rotten Tomatoes Rating in", input$platform))
+    hist_data <- hist(x, breaks = bins, plot = FALSE)
+    
+    plot_ly() %>%
+      add_bars(x = hist_data$mids, y = hist_data$counts,
+               marker = list(color = "#75AADB"),
+               hoverinfo = "y+text",
+               text = ~paste("Rating: ", hist_data$mids)) %>%
+      layout(
+        xaxis = list(title = "Rotten Tomatoes Rating"),
+        yaxis = list(title = "Frequency"),
+        title = paste("Histogram of Rotten Tomatoes Rating in", input$platform),
+        hovermode = "closest"
+      )
   })
 }
 
